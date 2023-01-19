@@ -1,0 +1,4 @@
+main: io.benlewis.dropin.DropIn
+name: Drop-In
+version: ${project.version}
+author: AnarchistDev
