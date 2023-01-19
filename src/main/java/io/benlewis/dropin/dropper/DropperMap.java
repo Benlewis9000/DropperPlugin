@@ -8,7 +8,8 @@ public class DropperMap {
     private final Location spawnLocation;
     private final LocationArea exitArea;
 
-    protected DropperMap(Location spawnLocation, LocationArea exitArea){
+    // TODO make private, build with factory. Currently public for tests.
+    public DropperMap(Location spawnLocation, LocationArea exitArea){
         this.spawnLocation = spawnLocation;
         this.exitArea = exitArea;
     }
