@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LocationAreaTests {
 
     @Test
-    public void Collides_ShouldCollide(){
+    public void collides_ShouldCollide(){
         World world = new WorldMock();
         Location point1 = new Location(world, 0.0, 0.0, 0.0);
         Location point2 = new Location(world, 2.0, 2.0, 2.0);
@@ -30,7 +30,7 @@ public class LocationAreaTests {
 
     @ParameterizedTest
     @MethodSource("provideNonCollidingPoints")
-    public void Collides_ShouldNotCollide(double x2, double y2, double z2){
+    public void collides_ShouldNotCollide(double x2, double y2, double z2){
         World world = new WorldMock();
         Location point1 = new Location(world, 0.0, 0.0, 0.0);
         Location point2 = new Location(world, x2, y2, z2);
