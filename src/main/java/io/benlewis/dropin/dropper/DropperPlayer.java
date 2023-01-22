@@ -1,12 +1,25 @@
 package io.benlewis.dropin.dropper;
 
-import io.benlewis.dropin.util.PlayerWrapper;
-import org.bukkit.entity.Player;
+public interface DropperPlayer {
 
-public class DropperPlayer extends PlayerWrapper {
+    /**
+     * Join the game.
+     */
+    void joinDropper();
 
-    public DropperPlayer(Player player) {
-        super(player);
-    }
+    /**
+     * Exit the game and restore player to pre-game state.
+     */
+    void quitDropper();
+
+    /**
+     * Complete the current map, progress to the next one.
+     */
+    void completeMap();
+
+    /**
+     * Skip the current map, progress to the next one.
+     */
+    void skipMap();
 
 }
