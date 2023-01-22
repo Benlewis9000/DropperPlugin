@@ -6,23 +6,31 @@ import org.bukkit.entity.Player;
 
 public class DefaultDropperPlayer extends PlayerWrapper implements DropperPlayer {
 
+    private final DropperPlayerManager playerManager;
     private final Location preDropperLocation;
     private final MapRotation mapRotation;
     private DropperMap currentMap;
 
-    public DefaultDropperPlayer(Player player, MapRotation mapRotation) {
+    public DefaultDropperPlayer(Player player, DropperPlayerManager playerManager, MapRotation mapRotation) {
         super(player);
+        this.playerManager = playerManager;
         this.preDropperLocation = this.getLocation();
         this.mapRotation = mapRotation;
         this.currentMap = null;
     }
 
-    public void joinDropper(){
+    public void startDropper(){
         progressToNextMap();
     }
 
     public void quitDropper(){
         this.teleport(preDropperLocation);
+        playerManager.remove(this.getUniqueId());
+    }
+
+    @Override
+    public DropperMap getCurrentMap() {
+        return currentMap;
     }
 
     @Override
