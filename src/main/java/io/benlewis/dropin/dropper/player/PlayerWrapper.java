@@ -1,4 +1,4 @@
-package io.benlewis.dropin.util;
+package io.benlewis.dropin.dropper.player;
 
 import org.bukkit.*;
 import org.bukkit.advancement.Advancement;

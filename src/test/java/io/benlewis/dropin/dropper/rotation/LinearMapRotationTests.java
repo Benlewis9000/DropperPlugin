@@ -1,8 +1,8 @@
-package dropper;
+package io.benlewis.dropin.dropper.rotation;
 
-import io.benlewis.dropin.dropper.DropperMap;
-import io.benlewis.dropin.dropper.LinearMapRotation;
-import io.benlewis.dropin.dropper.MapRotation;
+import io.benlewis.dropin.dropper.map.DropperMap;
+import io.benlewis.dropin.dropper.rotation.LinearMapRotation;
+import io.benlewis.dropin.dropper.rotation.MapRotation;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

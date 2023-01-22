@@ -1,9 +1,11 @@
-package io.benlewis.dropin.dropper;
+package io.benlewis.dropin.dropper.map;
+
+import io.benlewis.dropin.dropper.Manager;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class DropperMapManager implements Manager<String, DropperMap>{
+public class DropperMapManager implements Manager<String, DropperMap> {
 
     private final Map<String, DropperMap> dropperMaps;
 

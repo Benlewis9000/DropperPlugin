@@ -1,4 +1,4 @@
-package io.benlewis.dropin.dropper;
+package io.benlewis.dropin.dropper.rotation;
 
 public enum DropperMapRotationType {
 

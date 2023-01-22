@@ -1,6 +1,5 @@
-package io.benlewis.dropin.dropper;
+package io.benlewis.dropin.dropper.map;
 
-import io.benlewis.dropin.util.LocationCube;
 import org.bukkit.Location;
 
 public class DropperMap {

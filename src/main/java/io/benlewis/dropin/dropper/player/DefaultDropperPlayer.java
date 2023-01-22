@@ -1,6 +1,7 @@
-package io.benlewis.dropin.dropper;
+package io.benlewis.dropin.dropper.player;
 
-import io.benlewis.dropin.util.PlayerWrapper;
+import io.benlewis.dropin.dropper.map.DropperMap;
+import io.benlewis.dropin.dropper.rotation.MapRotation;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 

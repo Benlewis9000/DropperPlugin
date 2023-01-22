@@ -1,5 +1,6 @@
-package io.benlewis.dropin.dropper;
+package io.benlewis.dropin.dropper.player;
 
+import io.benlewis.dropin.dropper.map.DropperMap;
 import org.bukkit.entity.Player;
 
 public interface DropperPlayer extends Player {

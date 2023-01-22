@@ -1,5 +1,6 @@
-package io.benlewis.dropin.dropper;
+package io.benlewis.dropin.dropper.player;
 
+import io.benlewis.dropin.dropper.rotation.MapRotation;
 import org.bukkit.entity.Player;
 
 public class DropperPlayerFactory {

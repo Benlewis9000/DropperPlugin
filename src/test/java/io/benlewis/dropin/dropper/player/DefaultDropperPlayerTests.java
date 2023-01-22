@@ -1,10 +1,17 @@
-package dropper;
+package io.benlewis.dropin.dropper.player;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
 import io.benlewis.dropin.DropIn;
-import io.benlewis.dropin.dropper.*;
-import io.benlewis.dropin.util.LocationCube;
+import io.benlewis.dropin.dropper.map.DropperMap;
+import io.benlewis.dropin.dropper.map.DropperMapFactory;
+import io.benlewis.dropin.dropper.map.DropperMapManager;
+import io.benlewis.dropin.dropper.player.DropperPlayer;
+import io.benlewis.dropin.dropper.player.DropperPlayerFactory;
+import io.benlewis.dropin.dropper.player.DropperPlayerManager;
+import io.benlewis.dropin.dropper.rotation.LinearMapRotation;
+import io.benlewis.dropin.dropper.rotation.MapRotation;
+import io.benlewis.dropin.dropper.map.LocationCube;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

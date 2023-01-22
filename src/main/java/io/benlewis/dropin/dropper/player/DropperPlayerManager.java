@@ -1,4 +1,6 @@
-package io.benlewis.dropin.dropper;
+package io.benlewis.dropin.dropper.player;
+
+import io.benlewis.dropin.dropper.Manager;
 
 import java.util.HashMap;
 import java.util.UUID;

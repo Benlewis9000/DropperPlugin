@@ -1,4 +1,4 @@
-package io.benlewis.dropin.util;
+package io.benlewis.dropin.dropper.map;
 
 import org.bukkit.Location;
 

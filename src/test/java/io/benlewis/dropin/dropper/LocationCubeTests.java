@@ -1,7 +1,7 @@
-package util;
+package io.benlewis.dropin.dropper;
 
 import be.seeseemelk.mockbukkit.WorldMock;
-import io.benlewis.dropin.util.LocationCube;
+import io.benlewis.dropin.dropper.map.LocationCube;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.junit.jupiter.api.Test;

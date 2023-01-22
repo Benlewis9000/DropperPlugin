@@ -1,4 +1,6 @@
-package io.benlewis.dropin.dropper;
+package io.benlewis.dropin.dropper.rotation;
+
+import io.benlewis.dropin.dropper.map.DropperMap;
 
 import java.util.Collection;
 import java.util.Random;
