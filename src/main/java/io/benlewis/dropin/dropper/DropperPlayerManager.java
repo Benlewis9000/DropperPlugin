@@ -16,6 +16,7 @@ public class DropperPlayerManager implements Manager<UUID, DropperPlayer> {
         if (contains(id)){
             throw new IllegalArgumentException("Player with UUID " + id + " is already registered in this manager.");
         }
+        players.put(id, value);
     }
 
     @Override
