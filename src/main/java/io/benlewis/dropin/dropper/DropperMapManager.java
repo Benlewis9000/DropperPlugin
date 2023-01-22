@@ -1,13 +1,33 @@
 package io.benlewis.dropin.dropper;
 
-public interface DropperMapManager {
+import java.util.HashMap;
+import java.util.Map;
 
-    void add(String mapName, DropperMap map);
+public class DropperMapManager implements Manager<String, DropperMap>{
 
-    boolean contains(String mapName);
+    private final Map<String, DropperMap> dropperMaps;
 
-    DropperMap get(String mapName);
+    public DropperMapManager(){
+        this.dropperMaps = new HashMap<>();
+    }
 
-    void remove(String mapName);
+    @Override
+    public void put(String mapName, DropperMap map) {
+        dropperMaps.put(mapName, map);
+    }
 
+    @Override
+    public boolean contains(String mapName) {
+        return dropperMaps.containsKey(mapName);
+    }
+
+    @Override
+    public DropperMap get(String mapName) {
+        return dropperMaps.get(mapName);
+    }
+
+    @Override
+    public void remove(String mapName) {
+        dropperMaps.remove(mapName);
+    }
 }
