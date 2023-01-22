@@ -1,33 +1,26 @@
 package io.benlewis.dropin.dropper.player;
 
-import be.seeseemelk.mockbukkit.MockBukkit;
-import be.seeseemelk.mockbukkit.ServerMock;
-import io.benlewis.dropin.DropIn;
+import io.benlewis.dropin.MockBukkitTest;
 import io.benlewis.dropin.dropper.map.DropperMap;
 import io.benlewis.dropin.dropper.map.DropperMapFactory;
 import io.benlewis.dropin.dropper.map.DropperMapManager;
-import io.benlewis.dropin.dropper.player.DropperPlayer;
-import io.benlewis.dropin.dropper.player.DropperPlayerFactory;
-import io.benlewis.dropin.dropper.player.DropperPlayerManager;
+import io.benlewis.dropin.dropper.map.LocationCube;
 import io.benlewis.dropin.dropper.rotation.LinearMapRotation;
 import io.benlewis.dropin.dropper.rotation.MapRotation;
-import io.benlewis.dropin.dropper.map.LocationCube;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-public class DefaultDropperPlayerTests {
+public class DefaultDropperPlayerTests extends MockBukkitTest {
 
-    private ServerMock server;
-    private DropIn plugin;
     private Player player;
 
     private DropperPlayerManager playerManager;
@@ -38,12 +31,12 @@ public class DefaultDropperPlayerTests {
     private Location map2SpawnLocation;
     private DropperPlayer dropperPlayer;
 
+    @Override
     @BeforeEach
     public void setUpBukkit(){
-        server = MockBukkit.mock();
-        plugin = MockBukkit.load(DropIn.class);
-        player = server.addPlayer();
+        super.setUpBukkit();
 
+        player = server.addPlayer();
         playerManager = new DropperPlayerManager();
         playerFactory = new DropperPlayerFactory(playerManager);
         DropperMapManager mapManager = new DropperMapManager();
@@ -59,11 +52,6 @@ public class DefaultDropperPlayerTests {
         maps.add(map2);
         MapRotation mapRotation = new LinearMapRotation(maps);
         dropperPlayer = playerFactory.create(player, mapRotation);
-    }
-
-    @AfterEach
-    public void tearDownBukkit(){
-        MockBukkit.unmock();
     }
 
     @Test
