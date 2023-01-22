@@ -1,7 +1,7 @@
 package util;
 
 import be.seeseemelk.mockbukkit.WorldMock;
-import io.benlewis.dropin.util.LocationArea;
+import io.benlewis.dropin.util.LocationCube;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class LocationAreaTests {
+public class LocationCubeTests {
 
     @Test
     public void collides_ShouldCollide(){
@@ -22,10 +22,10 @@ public class LocationAreaTests {
         Location point1 = new Location(world, 0.0, 0.0, 0.0);
         Location point2 = new Location(world, 2.0, 2.0, 2.0);
         Location location = new Location(world, 1.0, 1.0, 1.0);
-        LocationArea locationArea = new LocationArea(point1, point2);
-        assertTrue(locationArea.collides(location));
-        LocationArea inverseLocationArea = new LocationArea(point2, point1);
-        assertTrue(inverseLocationArea.collides(location));
+        LocationCube locationCube = new LocationCube(point1, point2);
+        assertTrue(locationCube.isInBounds(location));
+        LocationCube inverseLocationCube = new LocationCube(point2, point1);
+        assertTrue(inverseLocationCube.isInBounds(location));
     }
 
     @ParameterizedTest
@@ -35,10 +35,10 @@ public class LocationAreaTests {
         Location point1 = new Location(world, 0.0, 0.0, 0.0);
         Location point2 = new Location(world, x2, y2, z2);
         Location location = new Location(world, 1.0, 1.0, 1.0);
-        LocationArea locationArea = new LocationArea(point1, point2);
-        assertFalse(locationArea.collides(location));
-        LocationArea inverseLocationArea = new LocationArea(point2, point1);
-        assertFalse(inverseLocationArea.collides(location));
+        LocationCube locationCube = new LocationCube(point1, point2);
+        assertFalse(locationCube.isInBounds(location));
+        LocationCube inverseLocationCube = new LocationCube(point2, point1);
+        assertFalse(inverseLocationCube.isInBounds(location));
     }
 
     private static Stream<Arguments> provideNonCollidingPoints(){

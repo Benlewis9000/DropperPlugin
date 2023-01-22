@@ -1,25 +1,30 @@
 package io.benlewis.dropin.dropper;
 
-import io.benlewis.dropin.util.LocationArea;
+import io.benlewis.dropin.util.LocationCube;
 import org.bukkit.Location;
 
 public class DropperMap {
 
+    private final String name;
     private final Location spawnLocation;
-    private final LocationArea exitArea;
+    private final LocationCube exitRegion;
 
-    // TODO make private, build with factory. Currently public for tests.
-    public DropperMap(Location spawnLocation, LocationArea exitArea){
+    protected DropperMap(String name, Location spawnLocation, LocationCube exitRegion){
+        this.name = name;
         this.spawnLocation = spawnLocation;
-        this.exitArea = exitArea;
+        this.exitRegion = exitRegion;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Location getSpawnLocation(){
         return spawnLocation;
     }
 
-    public LocationArea getExitArea(){
-        return exitArea;
+    public LocationCube getExitRegion(){
+        return exitRegion;
     }
 
 }
