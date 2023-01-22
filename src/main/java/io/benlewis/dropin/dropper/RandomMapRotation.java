@@ -2,24 +2,15 @@ package io.benlewis.dropin.dropper;
 
 import java.util.*;
 
-public class RandomMapRotation implements MapRotation {
+public class RandomMapRotation extends BasicMapRotation {
 
-    private final Random random;
     private final DropperMap[] dropperMaps;
-    private final Stack<DropperMap> previousMaps;
+    private final Random random;
 
-    public RandomMapRotation(Set<DropperMap> maps, Random random){
+    public RandomMapRotation(Collection<DropperMap> maps, Random random) {
+        super(maps);
         this.dropperMaps = maps.toArray(DropperMap[]::new);
-        this.previousMaps = new Stack<>();
         this.random = random;
-    }
-
-    public RandomMapRotation(Set<DropperMap> maps, long seed){
-        this(maps, new Random(seed));
-    }
-
-    public RandomMapRotation(Set<DropperMap> maps){
-        this(maps, new Random());
     }
 
     @Override
@@ -30,8 +21,4 @@ public class RandomMapRotation implements MapRotation {
         return next;
     }
 
-    @Override
-    public DropperMap previous() {
-        return (previousMaps.size() > 0) ? previousMaps.pop() : null;
-    }
 }
