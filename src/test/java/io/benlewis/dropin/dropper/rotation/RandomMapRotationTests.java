@@ -1,12 +1,11 @@
 package io.benlewis.dropin.dropper.rotation;
 
 import io.benlewis.dropin.dropper.map.DropperMap;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,11 +22,11 @@ public class RandomMapRotationTests {
         MapRotationTests.previous_ShouldGetPreviousMapOrNull(randomMapRotation);
     }
 
-    @Test
+    @RepeatedTest(10)
     public void next_ShouldGetMap2ThenMap1(){
         DropperMap map1 = Mockito.mock(DropperMap.class);
         DropperMap map2 = Mockito.mock(DropperMap.class);
-        Set<DropperMap> maps = new HashSet<>();
+        List<DropperMap> maps = new ArrayList<>();
         maps.add(map1);
         maps.add(map2);
         // Seed of one outputs 1, 0 when bounds 0-2
