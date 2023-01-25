@@ -3,7 +3,6 @@ package io.benlewis.dropin.dropper.player;
 import io.benlewis.dropin.MockBukkitTest;
 import io.benlewis.dropin.dropper.map.DropperMap;
 import io.benlewis.dropin.dropper.map.DropperMapFactory;
-import io.benlewis.dropin.dropper.map.DropperMapManager;
 import io.benlewis.dropin.dropper.map.LocationCube;
 import io.benlewis.dropin.dropper.rotation.LinearMapRotation;
 import io.benlewis.dropin.dropper.rotation.MapRotation;
@@ -24,8 +23,6 @@ public class DefaultDropperPlayerTests extends MockBukkitTest {
     private Player player;
 
     private DropperPlayerManager playerManager;
-    private DropperPlayerFactory playerFactory;
-    private DropperMapFactory mapFactory;
     private List<DropperMap> maps;
     private Location map1SpawnLocation;
     private Location map2SpawnLocation;
@@ -38,9 +35,8 @@ public class DefaultDropperPlayerTests extends MockBukkitTest {
 
         player = server.addPlayer();
         playerManager = new DropperPlayerManager();
-        playerFactory = new DropperPlayerFactory(playerManager);
-        DropperMapManager mapManager = new DropperMapManager();
-        mapFactory = new DropperMapFactory(mapManager);
+        DropperPlayerFactory playerFactory = new DropperPlayerFactory(playerManager);
+        DropperMapFactory mapFactory = new DropperMapFactory(plugin);
 
         maps = new ArrayList<>();
         World world = server.addSimpleWorld("world");
