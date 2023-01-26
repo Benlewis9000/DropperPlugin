@@ -11,7 +11,7 @@ public class MockBukkitTest {
     protected DropIn plugin;
 
     @BeforeEach
-    protected void setUpBukkit(){
+    protected void setUpBukkit() {
         server = MockBukkit.mock();
         plugin = MockBukkit.load(DropIn.class);
     }
