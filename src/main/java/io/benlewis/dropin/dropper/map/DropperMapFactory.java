@@ -33,10 +33,6 @@ public class DropperMapFactory {
         return new DropperMap(name, spawn, exitRegion);
     }
 
-    public DropperMap create(String name, Location spawnLocation, LocationCube exitRegion){
-        return new DropperMap(name, spawnLocation, exitRegion);
-    }
-
     private Location createLocation(ConfigurationSection config) {
         String worldName = config.getString("world");
         World world = plugin.getServer().getWorld(worldName);

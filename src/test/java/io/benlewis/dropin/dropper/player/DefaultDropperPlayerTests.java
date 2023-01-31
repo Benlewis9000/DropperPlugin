@@ -2,8 +2,6 @@ package io.benlewis.dropin.dropper.player;
 
 import io.benlewis.dropin.MockBukkitTest;
 import io.benlewis.dropin.dropper.map.DropperMap;
-import io.benlewis.dropin.dropper.map.DropperMapFactory;
-import io.benlewis.dropin.dropper.map.LocationCube;
 import io.benlewis.dropin.dropper.rotation.LinearMapRotation;
 import io.benlewis.dropin.dropper.rotation.MapRotation;
 import org.bukkit.Location;
@@ -17,6 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class DefaultDropperPlayerTests extends MockBukkitTest {
 
@@ -30,20 +29,21 @@ public class DefaultDropperPlayerTests extends MockBukkitTest {
 
     @Override
     @BeforeEach
-    public void setUpBukkit(){
+    public void setUpBukkit() {
         super.setUpBukkit();
 
         player = server.addPlayer();
         playerManager = new DropperPlayerManager();
         DropperPlayerFactory playerFactory = new DropperPlayerFactory(playerManager);
-        DropperMapFactory mapFactory = new DropperMapFactory(plugin);
 
         maps = new ArrayList<>();
         World world = server.addSimpleWorld("world");
-        map1SpawnLocation = new Location(world, 42, 100, 0);
-        map2SpawnLocation = new Location(world, 7, 100, 0);
-        DropperMap map1 = mapFactory.create("map1", map1SpawnLocation, mock(LocationCube.class));
-        DropperMap map2 = mapFactory.create("map2", map2SpawnLocation, mock(LocationCube.class));
+        map1SpawnLocation = new Location(world, 32, 1, 1);
+        map2SpawnLocation = new Location(world, 64, 2, 2);
+        DropperMap map1 = mock(DropperMap.class, "map1");
+        DropperMap map2 = mock(DropperMap.class, "map2");
+        when(map1.getSpawnLocation()).thenReturn(map1SpawnLocation);
+        when(map2.getSpawnLocation()).thenReturn(map2SpawnLocation);
         maps.add(map1);
         maps.add(map2);
         MapRotation mapRotation = new LinearMapRotation(maps);
