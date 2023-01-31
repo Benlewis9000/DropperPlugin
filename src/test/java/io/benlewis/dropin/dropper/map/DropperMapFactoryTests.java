@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static io.benlewis.dropin.testutils.ConfigurationUtils.loadConfigFromString;
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DropperMapFactoryTests extends MockBukkitTest {
@@ -35,34 +36,36 @@ public class DropperMapFactoryTests extends MockBukkitTest {
     public void test_InvalidWorldName_ShouldThrowInvalidConfigurationException() throws InvalidConfigurationException {
         var mapConfig = loadConfigFromString(BAD_WORLD_MAP_CONFIG_DATA);
         DropperMapFactory dropperMapFactory = new DropperMapFactory(plugin.getServer());
-        Exception ex = assertThrows(InvalidConfigurationException.class, () -> dropperMapFactory.create("testmap", mapConfig));
-        assertExceptionMessageContains(ex, "could not find world named");
+
+        Throwable thrown = catchThrowable(() -> dropperMapFactory.create("testmap", mapConfig));
+        assertThat(thrown.getMessage()).containsIgnoringCase("could not find world named badworld");
     }
 
     @ParameterizedTest
     @MethodSource("provideMissingSectionTestData")
-    public void test_MissingSection_ShouldThrowInvalidConfigurationException(String sectionToRemove, String exMessage)
+    public void test_MissingSection_ShouldThrowExceptionWithMessage(String sectionToRemove, String expectedMessage)
             throws InvalidConfigurationException {
         var mapConfig = loadConfigFromString(GOOD_MAP_CONFIG_DATA);
         mapConfig.set(sectionToRemove, null);
+        var mapConfigTrimmed = mapConfig.getConfigurationSection("testmap");
         DropperMapFactory dropperMapFactory = new DropperMapFactory(plugin.getServer());
-        Exception ex = assertThrows(InvalidConfigurationException.class, () -> dropperMapFactory.create("testmap", mapConfig));
-        assertExceptionMessageContains(ex, "could not find data for map %s".formatted(exMessage));
+
+        Throwable thrown = catchThrowable(() -> dropperMapFactory.create("testmap", mapConfigTrimmed));
+        assertThat(thrown.getMessage()).containsIgnoringCase(expectedMessage);
     }
 
     private static Stream<Arguments> provideMissingSectionTestData(){
         return Stream.of(
-          Arguments.of("spawn", "spawn"),
-          Arguments.of("exit.point1", "exit region point1"),
-          Arguments.of("exit.point2", "exit region point2")
+          Arguments.of("testmap.spawn", "Could not find data for map spawn location in configuration"),
+          Arguments.of("testmap.exit.point1", "Could not find data for map exit region point1 in configuration"),
+          Arguments.of("testmap.exit.point2", "Could not find data for map exit region point2 in configuration"),
+          Arguments.of("testmap.exit.point1.world", "Could not find a world name in"),
+          Arguments.of("testmap.spawn.world", "Could not find a world name in")
         );
     }
 
-    private void assertExceptionMessageContains(Exception exception, String expected){
-        assertTrue(exception.getMessage().toLowerCase().contains(expected));
-    }
-
     private static final String GOOD_MAP_CONFIG_DATA = """
+          testmap:
             spawn:
               x: 100
               y: 250
