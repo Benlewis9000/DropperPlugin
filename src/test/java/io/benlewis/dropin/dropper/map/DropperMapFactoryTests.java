@@ -25,28 +25,28 @@ public class DropperMapFactoryTests extends MockBukkitTest {
     @Test
     public void create_ShouldSuccessfullyCreateMap() throws InvalidConfigurationException {
         var mapConfig = loadConfigFromString(GOOD_MAP_CONFIG_DATA);
-        DropperMapFactory dropperMapFactory = new DropperMapFactory(plugin);
+        DropperMapFactory dropperMapFactory = new DropperMapFactory(plugin.getServer());
         DropperMap map = dropperMapFactory.create("testmap", mapConfig);
         assertEquals("testmap", map.getName());
         assertEquals(250, map.getSpawnLocation().getY());
     }
 
     @Test
-    public void test_InvalidWorldName_ShouldThrowIllegalArgumentException() throws InvalidConfigurationException {
+    public void test_InvalidWorldName_ShouldThrowInvalidConfigurationException() throws InvalidConfigurationException {
         var mapConfig = loadConfigFromString(BAD_WORLD_MAP_CONFIG_DATA);
-        DropperMapFactory dropperMapFactory = new DropperMapFactory(plugin);
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> dropperMapFactory.create("testmap", mapConfig));
+        DropperMapFactory dropperMapFactory = new DropperMapFactory(plugin.getServer());
+        Exception ex = assertThrows(InvalidConfigurationException.class, () -> dropperMapFactory.create("testmap", mapConfig));
         assertExceptionMessageContains(ex, "could not find world named");
     }
 
     @ParameterizedTest
     @MethodSource("provideMissingSectionTestData")
-    public void test_MissingSection_ShouldThrowIllegalArgumentException(String sectionToRemove, String exMessage)
+    public void test_MissingSection_ShouldThrowInvalidConfigurationException(String sectionToRemove, String exMessage)
             throws InvalidConfigurationException {
         var mapConfig = loadConfigFromString(GOOD_MAP_CONFIG_DATA);
         mapConfig.set(sectionToRemove, null);
-        DropperMapFactory dropperMapFactory = new DropperMapFactory(plugin);
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> dropperMapFactory.create("testmap", mapConfig));
+        DropperMapFactory dropperMapFactory = new DropperMapFactory(plugin.getServer());
+        Exception ex = assertThrows(InvalidConfigurationException.class, () -> dropperMapFactory.create("testmap", mapConfig));
         assertExceptionMessageContains(ex, "could not find data for map %s".formatted(exMessage));
     }
 

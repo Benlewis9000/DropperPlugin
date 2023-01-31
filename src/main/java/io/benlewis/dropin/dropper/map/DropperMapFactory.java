@@ -1,30 +1,31 @@
 package io.benlewis.dropin.dropper.map;
 
-import io.benlewis.dropin.DropIn;
 import org.bukkit.Location;
+import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.InvalidConfigurationException;
 
 public class DropperMapFactory {
 
-    private final DropIn plugin;
+    private final Server server;
 
-    public DropperMapFactory(DropIn plugin){
-        this.plugin = plugin;
+    public DropperMapFactory(Server server){
+        this.server = server;
     }
 
-    public DropperMap create(String name, ConfigurationSection config){
+    public DropperMap create(String name, ConfigurationSection config) throws InvalidConfigurationException {
         ConfigurationSection spawnConfig = config.getConfigurationSection("spawn");
         if (spawnConfig == null){
-            throw new IllegalArgumentException("Could not find data for map spawn location in configuration.");
+            throw new InvalidConfigurationException("Could not find data for map spawn location in configuration.");
         }
         ConfigurationSection exitConfigPoint1 = config.getConfigurationSection("exit.point1");
         if (exitConfigPoint1 == null){
-            throw new IllegalArgumentException("Could not find data for map exit region point1 in configuration..");
+            throw new InvalidConfigurationException("Could not find data for map exit region point1 in configuration.");
         }
         ConfigurationSection exitConfigPoint2 = config.getConfigurationSection("exit.point2");
         if (exitConfigPoint2 == null){
-            throw new IllegalArgumentException("Could not find data for map exit region point2 in configuration..");
+            throw new InvalidConfigurationException("Could not find data for map exit region point2 in configuration.");
         }
         Location spawn = createLocation(spawnConfig);
         Location exitPoint1 = createLocation(exitConfigPoint1);
@@ -33,11 +34,14 @@ public class DropperMapFactory {
         return new DropperMap(name, spawn, exitRegion);
     }
 
-    private Location createLocation(ConfigurationSection config) {
+    private Location createLocation(ConfigurationSection config) throws InvalidConfigurationException {
         String worldName = config.getString("world");
-        World world = plugin.getServer().getWorld(worldName);
+        if (worldName == null){
+            throw new InvalidConfigurationException("Could not find a world name in %s".formatted(config.getCurrentPath()));
+        }
+        World world = server.getWorld(worldName);
         if (world == null) {
-            throw new IllegalArgumentException("Could not find world named \"%s\".".formatted(worldName));
+            throw new InvalidConfigurationException("Could not find world named \"%s\" on the server specified in %s".formatted(worldName, config.getCurrentPath()));
         }
         return new Location(
                 world,
