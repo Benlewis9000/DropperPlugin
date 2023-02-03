@@ -1,19 +1,22 @@
 package io.benlewis.dropin.dropper.player;
 
+import io.benlewis.dropin.dropper.Manager;
 import io.benlewis.dropin.dropper.map.DropperMap;
 import io.benlewis.dropin.dropper.rotation.MapRotation;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class DefaultDropperPlayer implements DropperPlayer {
 
     private final Player player;
-    private final DropperPlayerManager playerManager;
+    private final Manager<UUID, DropperPlayer> playerManager;
     private final Location preDropperLocation;
     private final MapRotation mapRotation;
     private DropperMap currentMap;
 
-    public DefaultDropperPlayer(Player player, DropperPlayerManager playerManager, MapRotation mapRotation) {
+    public DefaultDropperPlayer(Player player, Manager<UUID, DropperPlayer> playerManager, MapRotation mapRotation) {
         this.player = player;
         this.playerManager = playerManager;
         this.preDropperLocation = this.getPlayer().getLocation();
