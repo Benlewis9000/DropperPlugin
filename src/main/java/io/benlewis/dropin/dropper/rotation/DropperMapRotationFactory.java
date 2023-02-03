@@ -7,19 +7,19 @@ import java.util.Random;
 
 public class DropperMapRotationFactory {
 
-    public MapRotation create(Collection<DropperMap> maps, DropperMapRotationType rotationType){
+    private final Collection<DropperMap> maps;
+    private final DropperMapRotationType rotationType;
+
+    public DropperMapRotationFactory(Collection<DropperMap> maps, DropperMapRotationType rotationType){
+        this.maps = maps;
+        this.rotationType = rotationType;
+    }
+
+    public MapRotation create(){
         return switch (rotationType) {
-            case LINEAR -> createLinearMapRotation(maps);
-            case RANDOM -> createRandomMapRotation(maps);
+            case LINEAR -> new LinearMapRotation(maps);
+            case RANDOM -> new RandomMapRotation(maps, new Random());
         };
-    }
-
-    private MapRotation createRandomMapRotation(Collection<DropperMap> maps){
-        return new RandomMapRotation(maps, new Random());
-    }
-
-    private MapRotation createLinearMapRotation(Collection<DropperMap> maps){
-        return new LinearMapRotation(maps);
     }
 
 }
