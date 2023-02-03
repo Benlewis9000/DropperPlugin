@@ -58,46 +58,46 @@ public class DefaultDropperPlayerTests extends MockBukkitTest {
 
     @Test
     public void startDropper_ShouldTeleportToMapSpawn(){
-        assertNotEquals(map1SpawnLocation, dropperPlayer.getLocation(),
+        assertNotEquals(map1SpawnLocation, dropperPlayer.getPlayer().getLocation(),
                 "player and map spawn should be different before player starts game");
         dropperPlayer.startDropper();
-        assertEquals(map1SpawnLocation, dropperPlayer.getLocation());
+        assertEquals(map1SpawnLocation, dropperPlayer.getPlayer().getLocation());
     }
 
     @Test
     public void quitDropper_ShouldTeleportToPreMapLocation(){
         Location preStartLocation = player.getLocation();
         dropperPlayer.startDropper();
-        assertNotEquals(preStartLocation, dropperPlayer.getLocation());
+        assertNotEquals(preStartLocation, dropperPlayer.getPlayer().getLocation());
         dropperPlayer.quitDropper();
-        assertEquals(preStartLocation, dropperPlayer.getLocation());
+        assertEquals(preStartLocation, dropperPlayer.getPlayer().getLocation());
     }
 
     @Test
     public void quitDropper_ShouldRemovePlayerFromManager(){
         dropperPlayer.startDropper();
-        assertTrue(playerManager.contains(dropperPlayer.getUniqueId()));
+        assertTrue(playerManager.contains(dropperPlayer.getPlayer().getUniqueId()));
         dropperPlayer.quitDropper();
-        assertFalse(playerManager.contains(dropperPlayer.getUniqueId()));
+        assertFalse(playerManager.contains(dropperPlayer.getPlayer().getUniqueId()));
     }
 
     @Test
     public void completeMap_ShouldUpdateCurrentMapAndGoToItsSpawn(){
         dropperPlayer.startDropper();
-        assertNotEquals(map2SpawnLocation, dropperPlayer.getLocation());
+        assertNotEquals(map2SpawnLocation, dropperPlayer.getPlayer().getLocation());
         assertNotEquals(maps.get(1), dropperPlayer.getCurrentMap());
         dropperPlayer.completeMap();
-        assertEquals(map2SpawnLocation, dropperPlayer.getLocation());
+        assertEquals(map2SpawnLocation, dropperPlayer.getPlayer().getLocation());
         assertEquals(maps.get(1), dropperPlayer.getCurrentMap());
     }
 
     @Test
     public void skipMap_ShouldUpdateCurrentMapAndGoToItsSpawn(){
         dropperPlayer.startDropper();
-        assertNotEquals(map2SpawnLocation, dropperPlayer.getLocation());
+        assertNotEquals(map2SpawnLocation, dropperPlayer.getPlayer().getLocation());
         assertNotEquals(maps.get(1), dropperPlayer.getCurrentMap());
         dropperPlayer.skipMap();
-        assertEquals(map2SpawnLocation, dropperPlayer.getLocation());
+        assertEquals(map2SpawnLocation, dropperPlayer.getPlayer().getLocation());
         assertEquals(maps.get(1), dropperPlayer.getCurrentMap());
     }
 

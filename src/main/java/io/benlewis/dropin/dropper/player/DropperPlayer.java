@@ -3,7 +3,13 @@ package io.benlewis.dropin.dropper.player;
 import io.benlewis.dropin.dropper.map.DropperMap;
 import org.bukkit.entity.Player;
 
-public interface DropperPlayer extends Player {
+public interface DropperPlayer {
+
+    /**
+     * Get the {@link Player} instance this object wraps.
+     * @return the wrapped player
+     */
+    Player getPlayer();
 
     /**
      * Join the game.

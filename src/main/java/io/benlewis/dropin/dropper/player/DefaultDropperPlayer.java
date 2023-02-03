@@ -5,19 +5,25 @@ import io.benlewis.dropin.dropper.rotation.MapRotation;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class DefaultDropperPlayer extends PlayerWrapper implements DropperPlayer {
+public class DefaultDropperPlayer implements DropperPlayer {
 
+    private final Player player;
     private final DropperPlayerManager playerManager;
     private final Location preDropperLocation;
     private final MapRotation mapRotation;
     private DropperMap currentMap;
 
     public DefaultDropperPlayer(Player player, DropperPlayerManager playerManager, MapRotation mapRotation) {
-        super(player);
+        this.player = player;
         this.playerManager = playerManager;
-        this.preDropperLocation = this.getLocation();
+        this.preDropperLocation = this.getPlayer().getLocation();
         this.mapRotation = mapRotation;
         this.currentMap = null;
+    }
+
+    @Override
+    public Player getPlayer() {
+        return player;
     }
 
     public void startDropper(){
@@ -25,8 +31,8 @@ public class DefaultDropperPlayer extends PlayerWrapper implements DropperPlayer
     }
 
     public void quitDropper(){
-        this.teleport(preDropperLocation);
-        playerManager.remove(this.getUniqueId());
+        this.getPlayer().teleport(preDropperLocation);
+        playerManager.remove(this.getPlayer().getUniqueId());
     }
 
     @Override
@@ -46,6 +52,6 @@ public class DefaultDropperPlayer extends PlayerWrapper implements DropperPlayer
 
     private void progressToNextMap(){
         currentMap = mapRotation.next();
-        this.teleport(currentMap.getSpawnLocation());
+        this.getPlayer().teleport(currentMap.getSpawnLocation());
     }
 }
