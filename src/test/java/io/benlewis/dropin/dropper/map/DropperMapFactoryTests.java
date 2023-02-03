@@ -25,7 +25,7 @@ public class DropperMapFactoryTests extends MockBukkitTest {
 
     @Test
     public void create_ShouldSuccessfullyCreateMap() throws InvalidConfigurationException {
-        var mapConfig = loadConfigFromString(GOOD_MAP_CONFIG_DATA);
+        var mapConfig = loadConfigFromString(GOOD_MAP_CONFIG_DATA).getConfigurationSection("testmap");
         DropperMapFactory dropperMapFactory = new DropperMapFactory(plugin.getServer());
         DropperMap map = dropperMapFactory.create("testmap", mapConfig);
         assertEquals("testmap", map.getName());
@@ -38,7 +38,7 @@ public class DropperMapFactoryTests extends MockBukkitTest {
         DropperMapFactory dropperMapFactory = new DropperMapFactory(plugin.getServer());
 
         Throwable thrown = catchThrowable(() -> dropperMapFactory.create("testmap", mapConfig));
-        assertThat(thrown.getMessage()).containsIgnoringCase("could not find world named badworld");
+        assertThat(thrown.getMessage()).containsIgnoringCase("could not find world named \"badworld\"");
     }
 
     @ParameterizedTest
