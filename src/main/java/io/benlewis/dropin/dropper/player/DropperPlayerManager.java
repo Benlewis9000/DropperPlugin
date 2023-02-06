@@ -1,16 +1,16 @@
 package io.benlewis.dropin.dropper.player;
 
+import io.benlewis.dropin.dropper.BasicManager;
 import io.benlewis.dropin.dropper.Manager;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 public class DropperPlayerManager implements Manager<UUID, DropperPlayer> {
 
-    private final HashMap<UUID, DropperPlayer> players;
+    private final BasicManager<UUID, DropperPlayer> players;
 
     public DropperPlayerManager(){
-        this.players = new HashMap<>();
+        this.players = new BasicManager<>();
     }
 
     @Override
@@ -20,7 +20,7 @@ public class DropperPlayerManager implements Manager<UUID, DropperPlayer> {
 
     @Override
     public boolean contains(UUID id) {
-        return players.containsKey(id);
+        return players.contains(id);
     }
 
     @Override
@@ -30,6 +30,9 @@ public class DropperPlayerManager implements Manager<UUID, DropperPlayer> {
 
     @Override
     public void remove(UUID id) {
+        if (this.contains(id)){
+            this.get(id).restorePreGameState();
+        }
         players.remove(id);
     }
 }

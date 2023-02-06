@@ -23,7 +23,7 @@ public class DropperPlayerFactory {
                     .formatted(player.getUniqueId()));
         }
         MapRotation mapRotation = mapRotationFactory.create();
-        DropperPlayer dropperPlayer = new DefaultDropperPlayer(player, playerManager, mapRotation);
+        DropperPlayer dropperPlayer = new DefaultDropperPlayer(player, mapRotation);
         playerManager.put(player.getUniqueId(), dropperPlayer);
         return dropperPlayer;
     }

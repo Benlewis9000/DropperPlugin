@@ -21,7 +21,6 @@ public class DefaultDropperPlayerTests extends MockBukkitTest {
 
     private Player player;
 
-    private DropperPlayerManager playerManager;
     private List<DropperMap> maps;
     private Location map1SpawnLocation;
     private Location map2SpawnLocation;
@@ -33,7 +32,6 @@ public class DefaultDropperPlayerTests extends MockBukkitTest {
         super.setUpBukkit();
 
         player = server.addPlayer();
-        playerManager = new DropperPlayerManager();
 
         maps = new ArrayList<>();
         World world = server.addSimpleWorld("world");
@@ -47,6 +45,7 @@ public class DefaultDropperPlayerTests extends MockBukkitTest {
         maps.add(map2);
 
         DropperMapRotationFactory rotationFactory = new DropperMapRotationFactory(maps, DropperMapRotationType.LINEAR);
+        DropperPlayerManager playerManager = new DropperPlayerManager();
         DropperPlayerFactory playerFactory = new DropperPlayerFactory(playerManager, rotationFactory);
         dropperPlayer = playerFactory.create(player);
     }
@@ -70,16 +69,8 @@ public class DefaultDropperPlayerTests extends MockBukkitTest {
         Location preStartLocation = player.getLocation();
         dropperPlayer.startDropper();
         assertNotEquals(preStartLocation, dropperPlayer.getPlayer().getLocation());
-        dropperPlayer.quitDropper();
+        dropperPlayer.restorePreGameState();
         assertEquals(preStartLocation, dropperPlayer.getPlayer().getLocation());
-    }
-
-    @Test
-    public void quitDropper_ShouldRemovePlayerFromManager(){
-        dropperPlayer.startDropper();
-        assertTrue(playerManager.contains(dropperPlayer.getPlayer().getUniqueId()));
-        dropperPlayer.quitDropper();
-        assertFalse(playerManager.contains(dropperPlayer.getPlayer().getUniqueId()));
     }
 
     @Test

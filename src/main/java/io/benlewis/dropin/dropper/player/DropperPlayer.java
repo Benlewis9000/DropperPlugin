@@ -17,9 +17,9 @@ public interface DropperPlayer {
     void startDropper();
 
     /**
-     * Exit the game and restore player to pre-game state.
+     * Restore player to pre-game state.
      */
-    void quitDropper();
+    void restorePreGameState();
 
     /**
      * Get the {@link DropperMap} the player is currently on.
