@@ -6,7 +6,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class DefaultDropperPlayer implements DropperPlayer {
-
     private final Player player;
     private final Location preDropperLocation;
     private final MapRotation mapRotation;
@@ -24,7 +23,10 @@ public class DefaultDropperPlayer implements DropperPlayer {
         return player;
     }
 
-    public void startDropper(){
+    public void startMapRotation(){
+        if (this.currentMap != null){
+            throw new IllegalStateException("This player has already started their game!");
+        }
         progressToNextMap();
     }
 

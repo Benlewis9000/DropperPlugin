@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -52,7 +54,7 @@ public class DefaultDropperPlayerTests extends MockBukkitTest {
 
     @Test
     public void startDropper_ShouldSetCurrentMap(){
-        dropperPlayer.startDropper();
+        dropperPlayer.startMapRotation();
         assertEquals(maps.get(0), dropperPlayer.getCurrentMap());
     }
 
@@ -60,14 +62,21 @@ public class DefaultDropperPlayerTests extends MockBukkitTest {
     public void startDropper_ShouldTeleportToMapSpawn(){
         assertNotEquals(map1SpawnLocation, dropperPlayer.getPlayer().getLocation(),
                 "player and map spawn should be different before player starts game");
-        dropperPlayer.startDropper();
+        dropperPlayer.startMapRotation();
         assertEquals(map1SpawnLocation, dropperPlayer.getPlayer().getLocation());
+    }
+
+    @Test
+    public void startDropper_AlreadyStarted_ShouldThrow(){
+        dropperPlayer.startMapRotation();
+        Throwable thrown = catchThrowable(() -> dropperPlayer.startMapRotation());
+        assertThat(thrown.getMessage()).containsIgnoringCase("has already started their game");
     }
 
     @Test
     public void quitDropper_ShouldTeleportToPreMapLocation(){
         Location preStartLocation = player.getLocation();
-        dropperPlayer.startDropper();
+        dropperPlayer.startMapRotation();
         assertNotEquals(preStartLocation, dropperPlayer.getPlayer().getLocation());
         dropperPlayer.restorePreGameState();
         assertEquals(preStartLocation, dropperPlayer.getPlayer().getLocation());
@@ -75,7 +84,7 @@ public class DefaultDropperPlayerTests extends MockBukkitTest {
 
     @Test
     public void completeMap_ShouldUpdateCurrentMapAndGoToItsSpawn(){
-        dropperPlayer.startDropper();
+        dropperPlayer.startMapRotation();
         assertNotEquals(map2SpawnLocation, dropperPlayer.getPlayer().getLocation());
         assertNotEquals(maps.get(1), dropperPlayer.getCurrentMap());
         dropperPlayer.completeMap();
@@ -85,7 +94,7 @@ public class DefaultDropperPlayerTests extends MockBukkitTest {
 
     @Test
     public void skipMap_ShouldUpdateCurrentMapAndGoToItsSpawn(){
-        dropperPlayer.startDropper();
+        dropperPlayer.startMapRotation();
         assertNotEquals(map2SpawnLocation, dropperPlayer.getPlayer().getLocation());
         assertNotEquals(maps.get(1), dropperPlayer.getCurrentMap());
         dropperPlayer.skipMap();
