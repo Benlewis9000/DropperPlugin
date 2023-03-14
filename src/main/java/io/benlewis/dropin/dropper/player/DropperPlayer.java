@@ -1,20 +1,13 @@
 package io.benlewis.dropin.dropper.player;
 
+import io.benlewis.dropin.api.PlayerWrapper;
 import io.benlewis.dropin.dropper.map.DropperMap;
-import org.bukkit.entity.Player;
 
-public interface DropperPlayer {
-
-    /**
-     * Get the {@link Player} instance this object wraps.
-     * @return the wrapped player
-     */
-    Player getPlayer();
-
+public interface DropperPlayer extends PlayerWrapper {
     /**
      * Join the game.
      */
-    void startDropper();
+    void startMapRotation();
 
     /**
      * Restore player to pre-game state.
@@ -36,5 +29,4 @@ public interface DropperPlayer {
      * Skip the current map, progress to the next one.
      */
     void skipMap();
-
 }
