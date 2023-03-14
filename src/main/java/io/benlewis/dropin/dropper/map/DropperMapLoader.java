@@ -3,6 +3,7 @@ package io.benlewis.dropin.dropper.map;
 import io.benlewis.dropin.configuration.ConfigFactory;
 import io.benlewis.dropin.configuration.ConfigType;
 import io.benlewis.dropin.configuration.ConfigWrapper;
+import org.bukkit.Server;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.logging.Logger;
@@ -15,10 +16,10 @@ public class DropperMapLoader {
     private final ConfigFactory configFactory;
     private final Logger logger;
 
-    public DropperMapLoader(DropperMapManager dropperMapManager, DropperMapFactory dropperMapFactory,
+    public DropperMapLoader(Server server, DropperMapManager dropperMapManager,
                             ConfigFactory configFactory, Logger logger){
         this.dropperMapManager = dropperMapManager;
-        this.dropperMapFactory = dropperMapFactory;
+        this.dropperMapFactory = new DropperMapFactory(server);
         this.configFactory = configFactory;
         this.logger = logger;
     }
@@ -28,6 +29,7 @@ public class DropperMapLoader {
         ConfigurationSection mapsConfigSection = mapsConfig.getFileConfiguration().getConfigurationSection("maps");
         if (mapsConfigSection == null){
             logger.warning("No dropper maps have been found in %s".formatted(ConfigType.MAPS.getFileName()));
+            return;
         }
         for (String key : mapsConfigSection.getKeys(false)){
             ConfigurationSection mapSection = mapsConfigSection.getConfigurationSection(key);
