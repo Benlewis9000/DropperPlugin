@@ -7,9 +7,26 @@ import org.bukkit.entity.Player;
  * @param <T> the player wrapper type for the game
  */
 public interface Phase<T extends PlayerWrapper> {
+
+    /**
+     * Get the owning {@link Game} for the Phase.
+     * @return the owning game
+     */
     Game<T> getGame();
+
+    /**
+     * Begin a phase.
+     */
     void beginPhase();
+
+    /**
+     * Complete a phase.
+     */
     void completePhase();
+
+    /**
+     * Cancel a phase.
+     */
     void cancelPhase();
 
     /**

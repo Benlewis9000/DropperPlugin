@@ -1,13 +1,30 @@
 package io.benlewis.dropin.api;
 
-import io.benlewis.dropin.dropper.game.BasicDropperLobby;
-
 /**
  * Represents a single game. Owns {@link Phase}'s and a {@link Lobby}.
  * @param <T> the player wrapper type for the game
  */
 public interface Game<T extends PlayerWrapper> {
+    /**
+     * Cancel a game.
+     */
     void cancelGame();
-    Phase<T> getCurrentPhase();
-    BasicDropperLobby getLobby();
+
+    /**
+     * Get the {@link Phase} that the Game is currently in.
+     * @return the active phase
+     */
+    Phase<T> getActivePhase();
+
+    /**
+     * Set the active {@link Phase} for the Game.
+     * @param phase to set as active
+     */
+    void setActivePhase(Phase<T> phase);
+
+    /**
+     * Get the {@link Lobby} for the game.
+     * @return the games lobby
+     */
+    Lobby<T> getLobby();
 }
