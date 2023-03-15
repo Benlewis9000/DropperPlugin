@@ -1,0 +1,20 @@
+maps:
+ example:
+    spawn:
+      x: 100
+      y: 250
+      z: -40
+      pitch: 0
+      yaw: 0
+      world: world
+    exit:
+      point1:
+        x: 90
+        y: 10
+        z: 0
+        world: world
+      point2:
+        x: 90
+        y: 14
+        z: 3
+        world: world
