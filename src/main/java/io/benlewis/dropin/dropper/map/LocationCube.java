@@ -5,8 +5,8 @@ import org.bukkit.Location;
 public class LocationCube {
 
     // TODO Use 3 point vectors? Are locations expensive? What about worlds?
-    Location point1;
-    Location point2;
+    private final Location point1;
+    private final Location point2;
 
     public LocationCube(Location point1, Location point2){
         this.point1 = point1;
