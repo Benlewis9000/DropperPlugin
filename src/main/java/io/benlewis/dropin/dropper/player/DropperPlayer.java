@@ -1,9 +1,10 @@
 package io.benlewis.dropin.dropper.player;
 
 import io.benlewis.dropin.api.PlayerWrapper;
+import io.benlewis.dropin.api.Respawnable;
 import io.benlewis.dropin.dropper.map.DropperMap;
 
-public interface DropperPlayer extends PlayerWrapper {
+public interface DropperPlayer extends PlayerWrapper, Respawnable {
     /**
      * Join the game.
      */

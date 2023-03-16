@@ -53,4 +53,12 @@ public class DefaultDropperPlayer implements DropperPlayer {
         currentMap = mapRotation.next();
         this.getPlayer().teleport(currentMap.getSpawnLocation());
     }
+
+    @Override
+    public Location getSpawnpoint() {
+        if (currentMap == null){
+            throw new IllegalStateException("This player has not yet started a game, currentMap is null.");
+        }
+        return currentMap.getSpawnLocation();
+    }
 }

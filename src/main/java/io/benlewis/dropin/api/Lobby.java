@@ -28,4 +28,11 @@ public interface Lobby<T extends PlayerWrapper> {
      * @throws IllegalArgumentException if the specifiec Player is not in the Lobby.
      */
     T getWrapper(Player player) throws IllegalArgumentException;
+
+    /**
+     * Query whether a {@link Player} is in the Lobby.
+     * @param player to check is in lobby
+     * @return true if player is in the lobby, else false
+     */
+    boolean containsPlayer(Player player);
 }
